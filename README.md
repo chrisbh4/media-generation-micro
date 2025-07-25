@@ -7,7 +7,7 @@ A robust, asynchronous microservice for media generation using the Replicate API
 - **FastAPI**: High-performance async web framework for API endpoints
 - **Celery**: Distributed task queue for background media generation
 - **Redis**: Message broker and result backend for Celery
-- **PostgreSQL**: Primary database for job metadata and persistence
+- **Postgres**: Primary database for job metadata and persistence
 - **Tortoise ORM**: Async ORM for database operations
 - **Docker**: Containerized deployment with docker-compose
 
@@ -69,7 +69,7 @@ docker-compose logs -f celery_worker
 # Install dependencies
 pip install -r requirements.txt
 
-# Start PostgreSQL and Redis (via Docker)
+# Start Postgres and Redis (via Docker)
 docker-compose up -d postgres redis
 
 # Initialize database
@@ -144,7 +144,7 @@ cp .env-example .env
 
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
-| `DATABASE_URL` | PostgreSQL connection string | `postgresql://postgres:password@localhost:5432/media_generation` | Yes |
+| `DATABASE_URL` | Postgres connection string | `postgres://postgres:password@localhost:5432/media_generation` | Yes |
 | `REDIS_URL` | Redis connection string | `redis://localhost:6379/0` | Yes |
 | `REPLICATE_API_TOKEN` | Replicate API token | `` | No (uses mock) |
 | `STORAGE_TYPE` | Storage backend (`local` or `s3`) | `local` | Yes |
@@ -258,7 +258,7 @@ celery -A app.tasks.celery_app inspect ping
 
 1. **Database Connection Errors**
    ```bash
-   # Check if PostgreSQL is running
+   # Check if Postgres is running
    docker-compose ps postgres
    
    # Check logs
